@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS catalog_items;
+DROP TABLE IF EXISTS brands;
+DROP TABLE IF EXISTS categories;
