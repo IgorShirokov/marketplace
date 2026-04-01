@@ -7,7 +7,7 @@ import (
 )
 
 type BrandRepository interface {
-	Brand(ctx context.Context) ([]entities.Brand, error)
+	Brands(ctx context.Context) ([]entities.Brand, error)
 }
 
 type CategoryRepository interface {
