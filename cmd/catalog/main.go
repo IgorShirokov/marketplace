@@ -45,15 +45,20 @@ func main() {
 	}
 
 	brandRepo := persistence.NewBrandRepository(db)
+	categoryRepo := persistence.NewCategoryRepository(db)
+
 	listBrandsHandler := queries.NewBrandsHandler(brandRepo)
+	listCategoriesHandler := queries.NewCategoriesHandler(categoryRepo)
+
 	brandsHandler := handlers.NewBrandsHandler(listBrandsHandler)
+	categoriesHandler := handlers.NewCategoryHandler(listCategoriesHandler)
 
 	r := gin.Default()
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
 
-	api.RegisterRoutes(r, brandsHandler)
+	api.RegisterRoutes(r, brandsHandler, categoriesHandler)
 
 	if err := r.Run(":" + appPort); err != nil {
 		panic(err)
