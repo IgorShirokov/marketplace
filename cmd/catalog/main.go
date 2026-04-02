@@ -4,26 +4,30 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/IgorShirokov/marketplace/internal/catalog/api"
 	"github.com/IgorShirokov/marketplace/internal/catalog/api/handlers"
 	"github.com/IgorShirokov/marketplace/internal/catalog/application/queries"
 	"github.com/IgorShirokov/marketplace/internal/catalog/infrastructure/persistence"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 
 	_ "github.com/lib/pq"
 )
 
 func main() {
-	const (
-		appPort = "9001"
-		pgHost  = "localhost"
-		pgPort  = "9101"
-		pdDB    = "catalog-db-dev"
-		pgUser  = "postgres"
-		pgPass  = "12345678"
-		pgSSL   = "disable"
-	)
+	if err := godotenv.Load("../../.env"); err != nil {
+		log.Println("No .env file found, using default configuration")
+	}
+
+	appPort := os.Getenv("CATALOG_APP_PORT")
+	pgHost := os.Getenv("CATALOG_PG_HOST")
+	pgPort := os.Getenv("CATALOG_PG_PORT")
+	pdDB := os.Getenv("CATALOG_PG_DATABASE")
+	pgUser := os.Getenv("CATALOG_PG_USER")
+	pgPass := os.Getenv("CATALOG_PG_PASSWORD")
+	pgSSL := os.Getenv("CATALOG_PG_SSLMODE")
 
 	dsn := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
