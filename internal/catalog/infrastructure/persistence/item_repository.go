@@ -73,7 +73,7 @@ func scanCatalogItem(rows *sql.Rows) (entities.CatalogItem, error) {
 	if brandID != nil {
 		item.Brand = &entities.Brand{
 			BaseEntity: entities.BaseEntity{
-				ID:    brandID.String(),
+				ID:    *brandID,
 				Title: *brandTitle,
 			},
 		}
@@ -82,7 +82,7 @@ func scanCatalogItem(rows *sql.Rows) (entities.CatalogItem, error) {
 	if categoryID != nil {
 		item.Category = &entities.Category{
 			BaseEntity: entities.BaseEntity{
-				ID:    categoryID.String(),
+				ID:    *categoryID,
 				Title: *categoryTitle,
 			},
 		}

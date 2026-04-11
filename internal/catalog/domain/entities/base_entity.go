@@ -1,6 +1,8 @@
 package entities
 
+import "github.com/google/uuid"
+
 type BaseEntity struct {
-	ID    string
+	ID    uuid.UUID
 	Title string
 }
